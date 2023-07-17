@@ -31,11 +31,9 @@ namespace NewHorizons.Builder.General
                 playerSpawn._triggerVolumes = new OWTriggerVolume[0];
 
                 // This was a stupid hack to stop players getting stuck in the ground and now we have to keep it forever
-                spawnGO.transform.position += spawnGO.transform.up * 4f;
-//                spawnGO.transform.position += 4f * spawnGO.transform.up;
+                spawnGO.transform.position += 4f * spawnGO.transform.up;
 //                spawnGO.SetActive(true);
-                //NHLogger.Log("yes playerSpawn sequence now");
-                Main.Instance.ModHelper.Console.WriteLine("yes playerSpawn sequence now");
+                Main.Instance.ModHelper.Console.WriteLine($"yes playerSpawn sequence now {spawnGO.activeSelf}");
             }
 
             if (module.shipSpawn != null)

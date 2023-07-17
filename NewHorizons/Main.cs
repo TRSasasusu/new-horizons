@@ -443,6 +443,8 @@ namespace NewHorizons
                     var shouldWarpInFromShip = IsWarpingFromShip && ShipWarpController != null;
                     var shouldWarpInFromVessel = IsWarpingFromVessel && VesselWarpHandler.VesselSpawnPoint != null;
 
+                    Delay.RunWhen(() => _playerAwake, () => OnSystemReady(shouldWarpInFromShip, shouldWarpInFromVessel));
+
                     IsWarpingFromShip = false;
                     IsWarpingFromVessel = false;
                     DidWarpFromShip = shouldWarpInFromShip;
@@ -504,6 +506,12 @@ namespace NewHorizons
                 }
                 else if (isEyeOfTheUniverse)
                 {
+                    // There is no wake up in eye scene
+                    Delay.FireOnNextUpdate(() => {
+                        IsSystemReady = true;
+                        OnSystemReady(false, false);
+                    });
+
                     IsWarpingFromShip = false;
                     IsWarpingFromVessel = false;
                     DidWarpFromVessel = false;
@@ -562,7 +570,7 @@ namespace NewHorizons
             }
 
             // Wait for player to be awake and also for frames to pass
-            Delay.RunWhenAndInNUpdates(() => OnSystemReady(DidWarpFromShip, DidWarpFromVessel), () => _playerAwake && PlayerSpawned, 30);
+//            Delay.RunWhenAndInNUpdates(() => OnSystemReady(DidWarpFromShip, DidWarpFromVessel), () => _playerAwake && PlayerSpawned, 30);
         }
 
         // Had a bunch of separate unity things firing stuff when the system is ready so I moved it all to here

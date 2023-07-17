@@ -9,16 +9,16 @@ namespace NewHorizons.Handlers
     {
         public static void SetUpPlayerSpawn()
         {
-            var spawnPoint = Main.SystemDict[Main.Instance.CurrentStarSystem].SpawnPoint;
-            if (spawnPoint != null)
-            {
-                SearchUtilities.Find("Player_Body").GetComponent<MatchInitialMotion>().SetBodyToMatch(spawnPoint.GetAttachedOWRigidbody());
-                GetPlayerSpawner().SetInitialSpawnPoint(spawnPoint);
-            }
-            else
-            {
-                NHLogger.Log($"No NH spawn point for {Main.Instance.CurrentStarSystem}");
-            }
+//            var spawnPoint = Main.SystemDict[Main.Instance.CurrentStarSystem].SpawnPoint;
+//            if (spawnPoint != null)
+//            {
+//                SearchUtilities.Find("Player_Body").GetComponent<MatchInitialMotion>().SetBodyToMatch(spawnPoint.GetAttachedOWRigidbody());
+//                GetPlayerSpawner().SetInitialSpawnPoint(spawnPoint);
+//            }
+//            else
+//            {
+//                NHLogger.Log($"No NH spawn point for {Main.Instance.CurrentStarSystem}");
+//            }
         }
 
         public static void OnSystemReady(bool shouldWarpInFromShip, bool shouldWarpInFromVessel)
@@ -34,13 +34,14 @@ namespace NewHorizons.Handlers
             }
             else if (UsingCustomSpawn())
             {
-                InvulnerabilityHandler.MakeInvulnerable(true);
-
-                // Idk why but these just don't work?
-                var matchInitialMotion = SearchUtilities.Find("Player_Body").GetComponent<MatchInitialMotion>();
-                if (matchInitialMotion != null) UnityEngine.Object.Destroy(matchInitialMotion);
-
-                Main.Instance.StartCoroutine(SpawnCoroutine(2));
+                GetPlayerSpawner().DebugWarp(Main.SystemDict[Main.Instance.CurrentStarSystem].SpawnPoint);
+//                InvulnerabilityHandler.MakeInvulnerable(true);
+//
+//                // Idk why but these just don't work?
+//                var matchInitialMotion = SearchUtilities.Find("Player_Body").GetComponent<MatchInitialMotion>();
+//                if (matchInitialMotion != null) UnityEngine.Object.Destroy(matchInitialMotion);
+//
+//                Main.Instance.StartCoroutine(SpawnCoroutine(2));
             }
         }
 
