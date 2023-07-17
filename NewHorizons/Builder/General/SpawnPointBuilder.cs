@@ -21,18 +21,21 @@ namespace NewHorizons.Builder.General
             if (module.playerSpawn != null)
             {
                 GameObject spawnGO = GeneralPropBuilder.MakeNew("PlayerSpawnPoint", planetGO, null, module.playerSpawn);
-                spawnGO.SetActive(false);
+//                spawnGO.SetActive(false);
                 spawnGO.layer = Layer.PlayerSafetyCollider;
 
                 playerSpawn = spawnGO.AddComponent<SpawnPoint>();
-                playerSpawn._attachedBody = owRigidBody;
-                playerSpawn._spawnLocation = SpawnLocation.None;
+//                playerSpawn._attachedBody = owRigidBody;
+//                playerSpawn._spawnLocation = SpawnLocation.None;
                 // #601 we need to actually set the right trigger volumes here
                 playerSpawn._triggerVolumes = new OWTriggerVolume[0];
 
                 // This was a stupid hack to stop players getting stuck in the ground and now we have to keep it forever
-                spawnGO.transform.position += 4f * spawnGO.transform.up;
-                spawnGO.SetActive(true);
+                spawnGO.transform.position += spawnGO.transform.up * 4f;
+//                spawnGO.transform.position += 4f * spawnGO.transform.up;
+//                spawnGO.SetActive(true);
+                //NHLogger.Log("yes playerSpawn sequence now");
+                Main.Instance.ModHelper.Console.WriteLine("yes playerSpawn sequence now");
             }
 
             if (module.shipSpawn != null)
